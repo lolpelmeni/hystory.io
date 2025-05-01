@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Периодизация мировой истории</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --bg-gradient: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка с анимацией */
+        header {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 60px 0 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s ease;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .header-scroll {
+            display: inline-block;
+            margin-top: 20px;
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        /* Навигация */
+        nav {
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            transition: var(--transition);
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Основное содержание */
+        main {
+            padding: 60px 0;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+
+        .period {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .period.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .period::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid var(--accent);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid white;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent white;
+        }
+
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid white;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent white transparent transparent;
+        }
+
+        .right::after {
+            left: -16px;
+        }
+
+        .period-content {
+            padding: 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .period-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .timeline-date {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-date i {
+            margin-right: 10px;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin: 20px 0 10px;
+            font-size: 1.3rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        ul li::before {
+            content: "•";
+            color: var(--accent);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .period-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .period-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Подвал */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p {
+            color: #adb5bd;
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Адаптивность */
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .period {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .period::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+
+            .left::after, .right::after {
+                left: 15px;
+            }
+
+            .right {
+                left: 0%;
+            }
+
+            .nav-container {
+                padding: 15px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: var(--transition);
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Кнопка "Наверх" */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
+            z-index: 99;
+        }
+
+        .scroll-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="container">
+            <h1>Периодизация мировой истории</h1>
+            <p>Исследуйте ключевые эпохи развития человечества через интерактивную временную шкалу</p>
+            <a href="#timeline-start" class="header-scroll"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </header>
+
+    <!-- Навигация -->
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo"><i class="fas fa-history"></i> История</a>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links">
+                <li><a href="#ancientest">Древнейшая</a></li>
+                <li><a href="#ancient">Древняя</a></li>
+                <li><a href="#middle">Средние века</a></li>
+                <li><a href="#new">Новая</a></li>
+                <li><a href="#modern">Новейшая</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Основное содержание -->
+    <main>
+        <div class="container">
+            <div class="timeline" id="timeline-start">
+                <!-- Древнейшая история -->
+                <div class="period left" id="ancientest">
+                    <div class="period-content">
+                        <h2>Древнейшая история</h2>
+                        <div class="timeline-date"><i class="fas fa-clock"></i> ~2.5 млн лет назад - IV тыс. до н.э.</div>
+                        
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW8be0e0phUM-yAMmupWz9N5IGOigibA90XA&s" alt="Древнейшая история" class="period-image">
+                        
+                        <h3><i class="fas fa-list-ol"></i> Основные события</h3>
+                        <ul>
+                            <li>Появление первых людей (Homo habilis)</li>
+                            <li>Освоение огня (~1.5 млн лет назад)</li>
+                            <li>Появление Homo sapiens (~300 тыс. лет назад)</li>
+                            <li>Неолитическая революция (X-VIII тыс. до н.э.)</li>
+                        </ul>
+                        
+                        <h3><i class="fas fa-book-open"></i> Характеристика периода</h3>
+                        <p>Древнейшая история охватывает период от появления первых людей до возникновения первых цивилизаций. Это эпоха формирования человека как биологического вида, развития первобытного общества, становления речи, мышления и культуры.</p>
+                        
+                        <h3><i class="fas fa-star"></i> Значение периода</h3>
+                        <p>В этот период закладываются основы человеческой цивилизации: появляются первые орудия труда, формируется социальная организация, возникают религиозные представления. Неолитическая революция приводит к переходу от присваивающего хозяйства к производящему.</p>
+                        
+                        <h3><i class="fas fa-paint-brush"></i> Культурные достижения</h3>
+                        <ul>
+                            <li>Наскальная живопись (Альтамира, Ласко)</li>
+                            <li>Мегалитические сооружения (Стоунхендж)</li>
+                            <li>Изобретение керамики и ткачества</li>
+                            <li>Первые религиозные культы</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Древняя история -->
+                <div class="period right" id="ancient">
+                    <div class="period-content">
+                        <h2>Древняя история</h2>
+                        <div class="timeline-date"><i class="fas fa-clock"></i> IV тыс. до н.э. - V в. н.э.</div>
+                        
+                        <img src="https://homsk.com/upload/media/posts/2017-11/23/9ae07b4b6ea99127ee9999e2e3240aaf_1511450712-b.jpg" alt="Древняя история" class="period-image">
+                        
+                        <h3><i class="fas fa-list-ol"></i> Основные события</h3>
+                        <ul>
+                            <li>Возникновение первых цивилизаций (Месопотамия, Египет, Индия, Китай)</li>
+                            <li>Образование древних государств (Шумер, Вавилон, Древний Египет)</li>
+                            <li>Античная эпоха (Древняя Греция и Древний Рим)</li>
+                            <li>Падение Западной Римской империи (476 г.)</li>
+                        </ul>
+                        
+                        <h3><i class="fas fa-book-open"></i> Характеристика периода</h3>
+                        <p>Древняя история - эпоха возникновения и развития первых цивилизаций, формирования государственности, письменности, права и науки. Это время великих империй, философских школ и религиозных учений.</p>
+                        
+                        <h3><i class="fas fa-star"></i> Значение периода</h3>
+                        <p>В древний период закладываются основы современной цивилизации: появляются письменность, наука, философия, право, искусство. Формируются основные типы государственного устройства, социальной стратификации. Возникают мировые религии (буддизм, христианство).</p>
+                        
+                        <h3><i class="fas fa-paint-brush"></i> Культурные достижения</h3>
+                        <ul>
+                            <li>Письменность (клинопись, иероглифы, алфавит)</li>
+                            <li>Античная философия (Сократ, Платон, Аристотель)</li>
+                            <li>Архитектурные шедевры (пирамиды, Парфенон, Колизей)</li>
+                            <li>Развитие математики, астрономии, медицины</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Средние века -->
+                <div class="period left" id="middle">
+                    <div class="period-content">
+                        <h2>История средних веков</h2>
+                        <div class="timeline-date"><i class="fas fa-clock"></i> V в. - конец XV в.</div>
+                        
+                        <img src="https://naked-science.ru/wp-content/uploads/2016/10/field_image_00sredveca1231233.jpg" alt="Средние века" class="period-image">
+                        
+                        <h3><i class="fas fa-list-ol"></i> Основные события</h3>
+                        <ul>
+                            <li>Великое переселение народов (IV-VII вв.)</li>
+                            <li>Образование Византийской империи (395 г.)</li>
+                            <li>Возникновение ислама (VII в.)</li>
+                            <li>Феодальная раздробленность в Европе</li>
+                            <li>Крестовые походы (XI-XIII вв.)</li>
+                            <li>Падение Константинополя (1453 г.)</li>
+                        </ul>
+                        
+                        <h3><i class="fas fa-book-open"></i> Характеристика периода</h3>
+                        <p>Средние века - эпоха между античностью и новым временем, характеризующаяся господством феодальных отношений, преобладанием религиозного мировоззрения и традиционного общества. В этот период формируются современные европейские нации, закладываются основы парламентаризма и университетского образования.</p>
+                        
+                        <h3><i class="fas fa-star"></i> Значение периода</h3>
+                        <p>Средневековье стало временем синтеза античного наследия, варварских традиций и христианской культуры. В этот период сложились многие современные государства, города, университеты. Развитие торговли подготовило переход к новому времени.</p>
+                        
+                        <h3><i class="fas fa-paint-brush"></i> Культурные достижения</h3>
+                        <ul>
+                            <li>Романский и готический стили в архитектуре</li>
+                            <li>Схоластическая философия (Фома Аквинский)</li>
+                            <li>Рыцарская культура и куртуазная литература</li>
+                            <li>Создание первых университетов</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Новая история -->
+                <div class="period right" id="new">
+                    <div class="period-content">
+                        <h2>Новая история</h2>
+                        <div class="timeline-date"><i class="fas fa-clock"></i> конец XV в. - начало XX в.</div>
+                        
+                        <img src="https://www.dspl.ru/upload/resize_cache/iblock/ce7/2784_1856_11a8a532e325b5ffc65c5eb7a708d1626/IMG_4784.jpg" alt="Новая история" class="period-image">
+                        
+                        <h3><i class="fas fa-list-ol"></i> Основные события</h3>
+                        <ul>
+                            <li>Великие географические открытия (конец XV - начало XVI вв.)</li>
+                            <li>Реформация (XVI в.)</li>
+                            <li>Английская буржуазная революция (1640-1660)</li>
+                            <li>Эпоха Просвещения (XVIII в.)</li>
+                            <li>Промышленная революция (вторая половина XVIII - начало XIX вв.)</li>
+                            <li>Великая французская революция (1789-1799)</li>
+                        </ul>
+                        
+                        <h3><i class="fas fa-book-open"></i> Характеристика периода</h3>
+                        <p>Новая история - эпоха перехода от традиционного аграрного общества к индустриальному, время буржуазных революций, научно-технического прогресса и формирования капиталистических отношений. Это период становления современной политической системы, прав человека и национальных государств.</p>
+                        
+                        <h3><i class="fas fa-star"></i> Значение периода</h3>
+                        <p>В новое время происходит переход к индустриальному обществу, формируются основы современной демократии, науки и техники. Мир становится глобальным благодаря колониальным империям и международной торговле. Закладываются основы правового государства и гражданского общества.</p>
+                        
+                        <h3><i class="fas fa-paint-brush"></i> Культурные достижения</h3>
+                        <ul>
+                            <li>Научная революция (Коперник, Галилей, Ньютон)</li>
+                            <li>Эпоха Возрождения (Леонардо да Винчи, Микеланджело, Рафаэль)</li>
+                            <li>Развитие классической музыки (Бах, Моцарт, Бетховен)</li>
+                            <li>Изобретение книгопечатания, парового двигателя, электричества</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Новейшая история -->
+                <div class="period left" id="modern">
+                    <div class="period-content">
+                        <h2>Новейшая история</h2>
+                        <div class="timeline-date"><i class="fas fa-clock"></i> начало XX в. - настоящее время</div>
+                        
+                        <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="Новейшая история" class="period-image">
+                        
+                        <h3><i class="fas fa-list-ol"></i> Основные события</h3>
+                        <ul>
+                            <li>Первая мировая война (1914-1918)</li>
+                            <li>Октябрьская революция в России (1917)</li>
+                            <li>Великая депрессия (1929-1939)</li>
+                            <li>Вторая мировая война (1939-1945)</li>
+                            <li>Холодная война (1946-1991)</li>
+                            <li>Научно-техническая революция (вторая половина XX в.)</li>
+                            <li>Глобализация (конец XX - начало XXI вв.)</li>
+                        </ul>
+                        
+                        <h3><i class="fas fa-book-open"></i> Характеристика периода</h3>
+                        <p>Новейшая история - эпоха глобальных изменений в политике, экономике и культуре, время перехода к постиндустриальному обществу. Это период мировых войн, научно-технического прогресса, формирования информационного общества и глобальных проблем человечества.</p>
+                        
+                        <h3><i class="fas fa-star"></i> Значение периода</h3>
+                        <p>XX-XXI века стали временем беспрецедентного технологического прогресса, глобализации и формирования единого мирового пространства. Одновременно это период глобальных вызовов: ядерной угрозы, экологических проблем, международного терроризма. Человечество впервые осознало себя как единое целое.</p>
+                        
+                        <h3><i class="fas fa-paint-brush"></i> Культурные достижения</h3>
+                        <ul>
+                            <li>Развитие кинематографа, телевидения, интернета</li>
+                            <li>Освоение космоса (первый спутник, полёт Гагарина, высадка на Луну)</li>
+                            <li>Развитие атомной энергетики и цифровых технологий</li>
+                            <li>Глобальная информационная сеть</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>О проекте</h3>
+                    <p>Образовательный ресурс, посвященный периодизации мировой истории. Материалы предназначены для студентов, преподавателей и всех, кто интересуется историей.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul>
+                        <li><a href="#ancientest">Древнейшая история</a></li>
+                        <li><a href="#ancient">Древняя история</a></li>
+                        <li><a href="#middle">Средние века</a></li>
+                        <li><a href="#new">Новая история</a></li>
+                        <li><a href="#modern">Новейшая история</a></li>
+                    </ul>
+                </div>
+               
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Периодизация мировой истории. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка "Наверх" -->
+    <div class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Мобильное меню
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Анимация появления элементов при скролле
+        const periods = document.querySelectorAll('.period');
+
+        function checkVisibility() {
+            periods.forEach(period => {
+                const periodTop = period.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (periodTop < windowHeight - 100) {
+                    period.classList.add('visible');
+                }
+            });
+        }
+
+        // Кнопка "Наверх"
+        const scrollToTopBtn = document.querySelector('.scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            // Анимация элементов
+            checkVisibility();
+
+            // Кнопка "Наверх"
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('active');
+            } else {
+                scrollToTopBtn.classList.remove('active');
+            }
+        });
+
+        // Прокрутка к верху при клике
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Инициализация видимых элементов при загрузке
+        checkVisibility();
+    </script>
+</body>
+</html>
